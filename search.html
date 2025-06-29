@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Search - Librarian's Research Assistance</title>
+  <style>
+    :root {
+      --primary-color: #6a0dad;
+      --secondary-color: #fdfdff;
+      --accent-color: #b19cd9;
+      --text-color: #333;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      position: relative;
+    }
+
+    .language-toggle {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+    }
+
+    .language-toggle select {
+      padding: 6px;
+      border-radius: 6px;
+      border: none;
+      font-size: 14px;
+    }
+
+    nav {
+      background-color: #8a2be2;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 15px 25px;
+      display: block;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      background-color: var(--primary-color);
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    .section {
+      background-color: white;
+      border-left: 6px solid var(--accent-color);
+      margin-bottom: 25px;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    h2 {
+      color: var(--primary-color);
+    }
+
+    input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #580da6;
+    }
+
+    #results {
+      margin-top: 20px;
+    }
+
+    .result-item {
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      background-color: #f8f6ff;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+    }
+
+    .result-item h3 {
+      margin-top: 0;
+      color: var(--primary-color);
+    }
+
+    footer {
+      background-color: var(--primary-color);
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="language-toggle">
+      <select onchange="changeLanguage(this.value)">
+        <option value="en">English</option>
+        <option value="ms">Bahasa Melayu</option>
+      </select>
+    </div>
+    <h1 id="header-title">Search Library Resources</h1>
+    <p id="header-subtitle">Find guides, articles, books, and academic references</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="service.html">Service</a>
+    <a href="search.html">Search</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">Contact</a>
+    <a href="about.html">About Me</a>
+    <a href="login.html">Login</a>
+  </nav>
+
+  <div class="container">
+    <div class="section">
+      <h2 id="search-title">Search the Library</h2>
+      <p id="search-instruction">Enter your topic or keyword below:</p>
+      <input type="text" id="searchInput" placeholder="e.g. Artificial Intelligence, Citation, Research..." />
+      <br />
+      <button onclick="performSearch()" id="search-button">Search</button>
+
+      <div id="results"></div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 CHE's Your Research Assistance. All rights reserved.
+  </footer>
+
+  <script>
+    const database = [
+      {
+        title: "Artificial Intelligence in Education",
+        content: "Explore how AI is transforming teaching methods, assessment, and personalized learning environments in modern classrooms."
+      },
+      {
+        title: "Climate Change and Policy",
+        content: "Understand the science of climate change, global treaties like the Paris Agreement, and the role of policy in environmental action."
+      },
+      {
+        title: "Quantum Computing Basics",
+        content: "Learn about quantum bits (qubits), superposition, entanglement, and how quantum computers differ from classical ones."
+      },
+      {
+        title: "Effective Academic Writing",
+        content: "Covers clarity, coherence, argument structure, avoiding plagiarism, and citing sources appropriately."
+      },
+      {
+        title: "Digital Literacy for University Students",
+        content: "Covers evaluating sources, using databases, digital tools for organization, and online collaboration platforms."
+      },
+      {
+        title: "Research Methodology Guide",
+        content: "Includes qualitative vs quantitative research, surveys, interviews, experimental design, and ethics in research."
+      },
+      {
+        title: "Citing Sources Properly",
+        content: "Learn how to cite sources using APA, MLA, and Chicago style with examples and formatting tips."
+      },
+      {
+        title: "Developing a Research Question",
+        content: "Guidance on narrowing a broad topic into a focused, researchable question with examples and do's/don'ts."
+      }
+    ];
+
+    function performSearch() {
+      const input = document.getElementById("searchInput").value.trim().toLowerCase();
+      const results = document.getElementById("results");
+      results.innerHTML = "";
+
+      if (input === "") {
+        results.innerHTML = "<p>Please enter a keyword to search.</p>";
+        return;
+      }
+
+      const matched = database.filter(item =>
+        item.title.toLowerCase().includes(input) || item.content.toLowerCase().includes(input)
+      );
+
+      if (matched.length > 0) {
+        matched.forEach(item => {
+          const div = document.createElement("div");
+          div.className = "result-item";
+          div.innerHTML = `<h3>${item.title}</h3><p>${item.content}</p>`;
+          results.appendChild(div);
+        });
+      } else {
+        results.innerHTML = `<p>No results found for "<strong>${input}</strong>".</p>`;
+      }
+    }
+
+    function changeLanguage(lang) {
+      if (lang === "ms") {
+        document.getElementById("header-title").textContent = "Cari Sumber Perpustakaan";
+        document.getElementById("header-subtitle").textContent = "Cari panduan, artikel, buku dan rujukan akademik";
+        document.getElementById("search-title").textContent = "Cari dalam Perpustakaan";
+        document.getElementById("search-instruction").textContent = "Masukkan topik atau kata kunci di bawah:";
+        document.getElementById("search-button").textContent = "Cari";
+      } else {
+        document.getElementById("header-title").textContent = "Search Library Resources";
+        document.getElementById("header-subtitle").textContent = "Find guides, articles, books, and academic references";
+        document.getElementById("search-title").textContent = "Search the Library";
+        document.getElementById("search-instruction").textContent = "Enter your topic or keyword below:";
+        document.getElementById("search-button").textContent = "Search";
+      }
+    }
+  </script>
+</body>
+</html>
