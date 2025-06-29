@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Librarian's Research Assistance</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #f9f9ff;
+      color: #333;
+    }
+
+    header {
+      background-color: #6A0DAD;
+      color: white;
+      padding: 2rem;
+      position: relative;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      text-align: center;
+    }
+
+    header p {
+      font-size: 1rem;
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+
+    .language-selector {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
+
+    .language-dropdown {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+    }
+
+    nav {
+      background-color: #4B0082;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      padding: 1rem 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 25px;
+      transition: background-color 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: #9b59b6;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+
+    .btn-toggle {
+      background-color: #6A0DAD;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 25px;
+      cursor: pointer;
+      margin-bottom: 1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-toggle:hover {
+      background-color: #8137cb;
+    }
+
+    .section {
+      margin-bottom: 2rem;
+    }
+
+    .profile-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+      background-color: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 2px 8px rgba(106, 13, 173, 0.1);
+    }
+
+    .profile-container img {
+      width: 180px;
+      border-radius: 15px;
+      border: 3px solid #6A0DAD;
+    }
+
+    .profile-text {
+      flex: 1;
+    }
+
+    .profile-text h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #6A0DAD;
+    }
+
+    .vision-mission-title {
+      text-align: center;
+      margin: 3rem 0 1rem;
+    }
+
+    .vision-mission-title h2 {
+      color: #6A0DAD;
+      font-size: 2rem;
+    }
+
+    .vision-mission-sub {
+      font-size: 1rem;
+      color: #666;
+      margin-top: 0.5rem;
+    }
+
+    .vision-mission-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .card {
+      background-color: #e8d7f8;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 2px 8px rgba(106, 13, 173, 0.1);
+    }
+
+    .card h2 {
+      color: #6A0DAD;
+      margin-bottom: 1rem;
+    }
+
+    .card p, .card ul {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .card ul {
+      padding-left: 1.25rem;
+    }
+
+    footer {
+      background-color: #4B0082;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 4rem;
+    }
+
+    @media (max-width: 768px) {
+      .vision-mission-container {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-container {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .profile-container img {
+        margin-bottom: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="title">Hello Everyone !</h1>
+    <p id="subtitle">Your Gateway to Research Support and Library Resources</p>
+    <div class="language-selector">
+      <select class="language-dropdown" onchange="setLanguage(this.value)">
+        <option value="en">English</option>
+        <option value="ms">Bahasa Melayu</option>
+      </select>
+    </div>
+  </header>
+
+  <nav>
+    <a href="index.html" id="nav-home">Home</a>
+    <a href="#" id="nav-service">Service</a>
+    <a href="#" id="nav-search">Search</a>
+    <a href="#" id="nav-faq">FAQ</a>
+    <a href="#" id="nav-contact">Contact</a>
+    <a href="#" id="nav-about">About Me</a>
+    <a href="login.html" id="nav-login">Login</a>
+  </nav>
+
+  <div class="container">
+    <button class="btn-toggle" onclick="toggleBackground()" id="toggle-btn">View Background Info</button>
+
+    <div id="background-section">
+      <div class="section">
+        <h2 id="about-title">About Me</h2>
+        <div class="profile-container">
+          <img src="https://i.imgur.com/E2tJVd9.jpeg" alt="Librarian Photo" />
+          <div class="profile-text">
+            <h3 id="librarian-name">Mrs. Hawaa'</h3>
+            <p><strong id="position-label">Position:</strong> <span id="position">Senior Librarian</span></p>
+            <p id="bio-1">Hello! I'm <strong>Mrs. Hawaa'</strong>, a university librarian with over 10 years of experience supporting students and faculty in academic research, referencing, and information literacy.</p>
+            <p id="bio-2">I'm passionate about helping learners find the right resources, navigate digital databases, and build strong research skills.</p>
+            <p id="bio-3">Whether you're writing your first research paper or completing your thesis, I'm here to guide you every step of the way.</p>
+            <p id="bio-4">Throughout my career, I've conducted countless workshops on citation management, database searching, and avoiding plagiarism. I'm also an advocate for open educational resources and digital literacy initiatives.</p>
+            <p id="bio-5">Beyond the library, I enjoy reading about educational technology and mentoring student researchers. Feel free to reach out for one-on-one consultations or collaborative research support.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="vision-mission-title">
+        <h2 id="vision-mission-title">Vision & Mission</h2>
+        <p id="vision-mission-sub">Our core values that guide our services and support.</p>
+      </div>
+
+      <div class="vision-mission-container">
+        <div class="card">
+          <h2 id="vision-title">Vision</h2>
+          <p id="vision-desc">To be the leading source of research support, empowering every learner to access, evaluate, and create knowledge for the advancement of society.</p>
+        </div>
+
+        <div class="card">
+          <h2 id="mission-title">Mission</h2>
+          <ul id="mission-list">
+            <li>Provide personalized assistance to students, researchers, and faculty.</li>
+            <li>Promote information literacy and critical thinking skills.</li>
+            <li>Facilitate access to quality academic resources and databases.</li>
+            <li>Support lifelong learning and scholarly success through library services.</li>
+            <li>Foster a welcoming and inclusive research environment for all users.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 CHE's Your Research Assistance. All rights reserved.
+  </footer>
+
+  <script>
+    const translations = {
+      en: {
+        title: "Librarian's Research Assistance",
+        subtitle: "Your Gateway to Research Support and Library Resources",
+        'nav-home': "Home",
+        'nav-service': "Service",
+        'nav-search': "Search",
+        'nav-faq': "FAQ",
+        'nav-contact': "Contact",
+        'nav-about': "About Me",
+        'nav-login': "Login",
+        'toggle-btn': "View Background Info",
+        'about-title': "About Me",
+        'librarian-name': "Mrs. Hawaa'",
+        'position-label': "Position:",
+        'position': "Senior Librarian",
+        'bio-1': "Hello! I'm Mrs. Hawaa', a university librarian with over 10 years of experience supporting students and faculty in academic research, referencing, and information literacy.",
+        'bio-2': "I'm passionate about helping learners find the right resources, navigate digital databases, and build strong research skills.",
+        'bio-3': "Whether you're writing your first research paper or completing your thesis, I'm here to guide you every step of the way.",
+        'bio-4': "Throughout my career, I've conducted countless workshops on citation management, database searching, and avoiding plagiarism. I'm also an advocate for open educational resources and digital literacy initiatives.",
+        'bio-5': "Beyond the library, I enjoy reading about educational technology and mentoring student researchers. Feel free to reach out for one-on-one consultations or collaborative research support.",
+        'vision-mission-title': "Vision & Mission",
+        'vision-mission-sub': "Our core values that guide our services and support.",
+        'vision-title': "Vision",
+        'vision-desc': "To be the leading source of research support, empowering every learner to access, evaluate, and create knowledge for the advancement of society.",
+        'mission-title': "Mission",
+        'mission-list': `
+          <li>Provide personalized assistance to students, researchers, and faculty.</li>
+          <li>Promote information literacy and critical thinking skills.</li>
+          <li>Facilitate access to quality academic resources and databases.</li>
+          <li>Support lifelong learning and scholarly success through library services.</li>
+          <li>Foster a welcoming and inclusive research environment for all users.</li>`
+      },
+      ms: {
+        title: "Bantuan Penyelidikan Pustakawan",
+        subtitle: "Gerbang Anda ke Sokongan Penyelidikan dan Sumber Perpustakaan",
+        'nav-home': "Laman Utama",
+        'nav-service': "Perkhidmatan",
+        'nav-search': "Carian",
+        'nav-faq': "Soalan Lazim",
+        'nav-contact': "Hubungi",
+        'nav-about': "Tentang Saya",
+        'nav-login': "Log Masuk",
+        'toggle-btn': "Lihat Maklumat Latar Belakang",
+        'about-title': "Tentang Saya",
+        'librarian-name': "Puan Hawaa'",
+        'position-label': "Jawatan:",
+        'position': "Pustakawan Kanan",
+        'bio-1': "Hai! Saya Puan Hawaa', pustakawan universiti dengan lebih 10 tahun pengalaman membantu pelajar dan pensyarah dalam penyelidikan akademik, rujukan, dan literasi maklumat.",
+        'bio-2': "Saya bersemangat membantu pelajar mencari sumber yang betul, menavigasi pangkalan data digital, dan membina kemahiran penyelidikan yang kukuh.",
+        'bio-3': "Sama ada anda menulis kertas penyelidikan pertama atau menyiapkan tesis anda, saya sedia membimbing anda setiap langkah.",
+        'bio-4': "Sepanjang kerjaya saya, saya telah mengendalikan pelbagai bengkel mengenai pengurusan rujukan, carian pangkalan data dan elak plagiat. Saya juga menyokong inisiatif sumber pendidikan terbuka dan celik digital.",
+        'bio-5': "Di luar perpustakaan, saya suka membaca tentang teknologi pendidikan dan membimbing pelajar penyelidik. Hubungi saya untuk sesi perundingan atau sokongan penyelidikan.",
+        'vision-mission-title': "Visi & Misi",
+        'vision-mission-sub': "Nilai teras yang memacu perkhidmatan dan sokongan kami.",
+        'vision-title': "Visi",
+        'vision-desc': "Menjadi sumber utama sokongan penyelidikan, memperkasakan setiap pelajar mengakses, menilai, dan mencipta pengetahuan demi kemajuan masyarakat.",
+        'mission-title': "Misi",
+        'mission-list': `
+          <li>Menyediakan bantuan peribadi kepada pelajar, penyelidik, dan pensyarah.</li>
+          <li>Mempromosikan literasi maklumat dan pemikiran kritis.</li>
+          <li>Memudahkan akses kepada sumber akademik dan pangkalan data yang berkualiti.</li>
+          <li>Menyokong pembelajaran sepanjang hayat melalui perkhidmatan perpustakaan.</li>
+          <li>Mewujudkan persekitaran penyelidikan yang mesra dan inklusif untuk semua pengguna.</li>`
+      }
+    };
+
+    function setLanguage(lang) {
+      const keys = Object.keys(translations[lang]);
+      keys.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+          if (id === 'mission-list') {
+            element.innerHTML = translations[lang][id];
+          } else {
+            element.textContent = translations[lang][id];
+          }
+        }
+      });
+    }
+
+    function toggleBackground() {
+      const section = document.getElementById("background-section");
+      section.style.display = section.style.display === "none" ? "block" : "none";
+    }
+  </script>
+</body>
+</html>
