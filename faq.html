@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FAQ - Secretary Librarians' Research Assistance</title>
+  <style>
+    :root {
+      --primary-color: #6a0dad;
+      --secondary-color: #fdfdff;
+      --accent-color: #b19cd9;
+      --text-color: #333;
+      --chat-user-bg: #e0e0e0;
+      --chat-bot-bg: #d1b3ff;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      position: relative;
+    }
+
+    .language-switcher {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+    }
+
+    .language-switcher select {
+      padding: 6px 12px;
+      font-weight: bold;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      background-color: white;
+      color: var(--primary-color);
+    }
+
+    .language-switcher select:hover {
+      background-color: var(--accent-color);
+      color: white;
+    }
+
+    nav {
+      background-color: #8a2be2;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 15px 25px;
+      display: block;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      background-color: var(--primary-color);
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    .section {
+      background-color: white;
+      border-left: 6px solid var(--accent-color);
+      margin-bottom: 25px;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h2 {
+      color: var(--primary-color);
+      text-align: center;
+    }
+
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+      overflow-y: auto;
+      max-height: 600px;
+    }
+
+    .chat-bubble {
+      max-width: 70%;
+      padding: 15px;
+      border-radius: 20px;
+      font-size: 16px;
+      line-height: 1.4;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .user {
+      background-color: var(--chat-user-bg);
+      align-self: flex-end;
+      border-bottom-right-radius: 0;
+    }
+
+    .bot {
+      background-color: var(--chat-bot-bg);
+      align-self: flex-start;
+      border-bottom-left-radius: 0;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    footer {
+      background-color: var(--primary-color);
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="language-switcher">
+      <select onchange="setLanguage(this.value)">
+        <option value="en">English</option>
+        <option value="ms">BM</option>
+      </select>
+    </div>
+    <h1 id="main-title">Our FAQ Service</h1>
+    <p id="main-subtitle">Your Gateway to Research Support and Library Resources</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="#">Service</a>
+    <a href="#">Search</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">Contact</a>
+    <a href="about.html">About Me</a>
+    <a href="#">Login</a>
+  </nav>
+
+  <div class="container">
+    <div class="section">
+      <h2 id="faq-title">FAQ Chatbot</h2>
+      <div class="chat-container" id="chatContainer"></div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 CHE's Your Research Assistance. All rights reserved.
+  </footer>
+
+  <script>
+    const texts = {
+      en: {
+        subtitle: "Your Gateway to Research Support and Library Resources",
+        faq: "FAQ Chatbot",
+        chat: [
+          { role: "user", text: "How do I request research help?" },
+          { role: "bot", text: "You can use the 'Ask a Librarian' page to submit your questions, and a librarian will respond as soon as possible." },
+          { role: "user", text: "Can I access past research papers?" },
+          { role: "bot", text: "Yes, use the Search feature to browse our archives and digital collections." },
+          { role: "user", text: "How do I cite my sources correctly?" },
+          { role: "bot", text: "Visit the Research Guides section for detailed citation instructions and tools." },
+          { role: "user", text: "Do I need an account to access library resources?" },
+          { role: "bot", text: "Yes, please login using your university credentials to gain full access to digital materials." },
+          { role: "user", text: "What if I can't find what I'm looking for?" },
+          { role: "bot", text: "Don't worry! Just reach out through the Ask a Librarian feature and we’ll help guide your search." }
+        ]
+      },
+      ms: {
+        subtitle: "Gerbang Anda ke Sokongan Penyelidikan dan Sumber Perpustakaan",
+        faq: "Chatbot Soalan Lazim",
+        chat: [
+          { role: "user", text: "Bagaimana saya boleh memohon bantuan penyelidikan?" },
+          { role: "bot", text: "Anda boleh menggunakan halaman 'Tanya Pustakawan' untuk menghantar soalan anda dan pustakawan akan membalas secepat mungkin." },
+          { role: "user", text: "Bolehkah saya mengakses kertas penyelidikan lepas?" },
+          { role: "bot", text: "Ya, gunakan ciri Carian untuk melihat arkib dan koleksi digital kami." },
+          { role: "user", text: "Bagaimana cara saya membuat petikan sumber dengan betul?" },
+          { role: "bot", text: "Lawati bahagian Panduan Penyelidikan untuk arahan petikan terperinci dan alat yang berguna." },
+          { role: "user", text: "Adakah saya perlu akaun untuk akses sumber perpustakaan?" },
+          { role: "bot", text: "Ya, sila log masuk menggunakan kelayakan universiti anda untuk akses penuh bahan digital." },
+          { role: "user", text: "Bagaimana jika saya tidak jumpa apa yang saya cari?" },
+          { role: "bot", text: "Jangan risau! Hubungi melalui ciri Tanya Pustakawan dan kami akan bantu carian anda." }
+        ]
+      }
+    };
+
+    let i = 0;
+    let currentLang = 'en';
+    const chatContainer = document.getElementById("chatContainer");
+
+    function showNextMessage(chatList) {
+      if (i < chatList.length) {
+        const message = document.createElement("div");
+        message.className = "chat-bubble " + (chatList[i].role === "user" ? "user" : "bot");
+        message.textContent = chatList[i].text;
+        chatContainer.appendChild(message);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+        i++;
+        setTimeout(() => showNextMessage(chatList), 1000);
+      }
+    }
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.getElementById("main-subtitle").textContent = texts[lang].subtitle;
+      document.getElementById("faq-title").textContent = texts[lang].faq;
+
+      i = 0;
+      chatContainer.innerHTML = "";
+      showNextMessage(texts[lang].chat);
+    }
+
+    window.onload = () => setLanguage(currentLang);
+  </script>
+</body>
+</html>
