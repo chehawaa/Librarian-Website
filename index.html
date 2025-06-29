@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Librarian's Research Assistance</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* (Semua CSS asal anda dikekalkan, ditambah sedikit untuk dropdown) */
+
+    :root {
+      --primary-color: #6a0dad;
+      --secondary-color: #fdfdff;
+      --accent-color: #b19cd9;
+      --text-color: #333;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo img {
+      height: 60px;
+      border-radius: 12px;
+      background-color: white;
+      padding: 5px;
+    }
+
+    .logo-text h1 {
+      font-size: 28px;
+      margin: 0;
+    }
+
+    .logo-text p {
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .language-select {
+      background: white;
+      color: var(--primary-color);
+      font-weight: bold;
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: none;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    nav {
+      background-color: #8a2be2;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 15px 25px;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      background-color: var(--primary-color);
+      border-radius: 8px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 80px 20px;
+      background-image: url('https://images.unsplash.com/photo-1606857521035-14bc0e96d480?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=80');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      position: relative;
+      margin-bottom: 40px;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(106, 13, 173, 0.5);
+      z-index: 0;
+      border-radius: 0 0 30px 30px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-start {
+      padding: 12px 30px;
+      background-color: white;
+      color: var(--primary-color);
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      text-decoration: none;
+    }
+
+    .btn-start:hover {
+      background-color: var(--accent-color);
+      color: white;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .section {
+      background-color: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      margin-bottom: 40px;
+    }
+
+    h2 {
+      color: var(--primary-color);
+      margin-bottom: 20px;
+    }
+
+    footer {
+      background-color: var(--primary-color);
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      .logo-text h1 {
+        font-size: 20px;
+      }
+
+      .hero h2 {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="https://i.imgur.com/LuhC9iS.png" alt="Library Logo">
+      <div class="logo-text">
+        <h1 data-i18n="title">Secretary Librarian's Assistance</h1>
+        <p data-i18n="subtitle">Your Gateway to Research Support and Library Resources</p>
+      </div>
+    </div>
+    <select class="language-select" onchange="changeLanguage(this.value)">
+      <option value="en">English</option>
+      <option value="ms">Bahasa Melayu</option>
+    </select>
+  </header>
+
+  <nav>
+    <a href="service.html" data-i18n="nav_service"> Service</a>
+    <a href="search.html" data-i18n="nav_search">Search</a>
+    <a href="faq.html" data-i18n="nav_faq">FAQ</a>
+    <a href="contact.html" data-i18n="nav_contact">Contact</a>
+    <a href="about.html" data-i18n="nav_about">About Me</a>
+    <a href="login.html" data-i18n="nav_login">Login</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h2 data-i18n="hero_title">Explore Research Without Limits</h2>
+      <p data-i18n="hero_desc">Find resources, ask for help, and advance your academic journey today!</p>
+      <a href="search.html" class="btn-start" data-i18n="btn_start">Get Started</a>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="section">
+      <h2 data-i18n="welcome_title">Welcome!</h2>
+      <p data-i18n="welcome_text">This platform connects you to librarians, research guides, FAQs, and more — all in one place. Use the navigation menu above to explore!</p>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 CHE's Your Research Assistance. All rights reserved.
+  </footer>
+
+  <script>
+    const translations = {
+      en: {
+        title: "Secretary Librarian's Assistance",
+        subtitle: "Your Gateway to Research Support and Library Resources",
+        nav_home: "Home",
+        nav_search: "Search",
+        nav_faq: "FAQ",
+        nav_contact: "Contact",
+        nav_about: "About Me",
+        nav_login: "Login",
+        hero_title: "Explore Research Without Limits",
+        hero_desc: "Find resources, ask for help, and advance your academic journey today!",
+        btn_start: "Get Started",
+        welcome_title: "Welcome!",
+        welcome_text: "This platform connects you to librarians, research guides, FAQs, and more — all in one place. Use the navigation menu above to explore!"
+      },
+      ms: {
+        title: "Bantuan Penyelidikan Pustakawan",
+        subtitle: "Gerbang Anda ke Sokongan Penyelidikan dan Sumber Perpustakaan",
+        nav_home: "Laman Utama",
+        nav_search: "Cari",
+        nav_faq: "Soalan Lazim",
+        nav_contact: "Hubungi",
+        nav_about: "Tentang Saya",
+        nav_login: "Log Masuk",
+        hero_title: "Terokai Penyelidikan Tanpa Batasan",
+        hero_desc: "Cari sumber, dapatkan bantuan, dan majukan perjalanan akademik anda hari ini!",
+        btn_start: "Mula Sekarang",
+        welcome_title: "Selamat Datang!",
+        welcome_text: "Platform ini menghubungkan anda dengan pustakawan, panduan penyelidikan, Soalan Lazim, dan banyak lagi — semuanya dalam satu tempat. Gunakan menu navigasi di atas untuk meneroka!"
+      }
+    };
+
+    function changeLanguage(lang) {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        el.textContent = translations[lang][key];
+      });
+    }
+  </script>
+</body>
+</html>
+
