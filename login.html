@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Librarian's Research Assistance</title>
+  <style>
+    :root {
+      --primary-color: #6a0dad;
+      --secondary-color: #fdfdff;
+      --accent-color: #b19cd9;
+      --text-color: #333;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      position: relative;
+    }
+
+    .language-selector {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+    }
+
+    .language-selector select {
+      padding: 6px 10px;
+      font-size: 14px;
+      border-radius: 5px;
+      border: 1px solid white;
+      background-color: white;
+      color: var(--primary-color);
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    nav {
+      background-color: #8a2be2;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 15px 25px;
+      display: block;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      background-color: var(--primary-color);
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    .section {
+      background-color: white;
+      border-left: 6px solid var(--accent-color);
+      margin-bottom: 25px;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 400px;
+    }
+
+    .login-form {
+      background-color: white;
+      padding: 30px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .login-form h3 {
+      color: var(--primary-color);
+      text-align: center;
+    }
+
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #580da6;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    footer {
+      background-color: var(--primary-color);
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Log Into Your Account</h1>
+    <p>Your Gateway to Research Support and Library Resources</p>
+    <div class="language-selector">
+      <select id="languageDropdown" onchange="switchLanguage()">
+        <option value="en">English</option>
+        <option value="ms">Bahasa Melayu</option>
+      </select>
+    </div>
+  </header>
+
+  <nav>
+      <a href="index.html">Home</a>
+    <a href="service.html">Service</a>
+    <a href="search.html">Search</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">Contact</a>
+    <a href="about.html">About Me</a>
+    <a href="login.html">Login</a>
+  </nav>
+
+  <div class="container">
+    <div class="section">
+      <h2>Login</h2>
+      <div class="login-container">
+        <div class="login-form">
+          <h3 id="loginTitle">Login to Access Resources</h3>
+          <form id="loginForm">
+            <input type="text" id="username" placeholder="Username (Name)" required />
+            <input type="password" id="password" placeholder="Password (Numbers only)" required />
+            <button type="submit" id="loginBtn">Log In</button>
+            <div class="error" id="errorMessage"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 CHE's Your Research Assistance. All rights reserved.
+  </footer>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const errorDiv = document.getElementById("errorMessage");
+
+      const isName = /^[a-zA-Z\s]+$/.test(username);
+      const isNumber = /^\d+$/.test(password);
+
+      if (!isName) {
+        errorDiv.textContent = currentLang === 'ms' 
+          ? "Nama pengguna mesti huruf sahaja." 
+          : "Username must contain only letters (e.g., your name).";
+        return;
+      }
+
+      if (!isNumber) {
+        errorDiv.textContent = currentLang === 'ms' 
+          ? "Kata laluan mesti nombor sahaja." 
+          : "Password must be numbers only.";
+        return;
+      }
+
+      alert(currentLang === 'ms' 
+        ? "Log masuk berjaya! Selamat datang, " + username + "." 
+        : "Login successful! Welcome, " + username + ".");
+
+      window.location.href = "home.html";
+    });
+
+    let currentLang = 'en';
+
+    function switchLanguage() {
+      const lang = document.getElementById("languageDropdown").value;
+      currentLang = lang;
+
+      const loginTitle = document.getElementById("loginTitle");
+      const loginBtn = document.getElementById("loginBtn");
+      const usernameInput = document.getElementById("username");
+      const passwordInput = document.getElementById("password");
+
+      if (lang === "ms") {
+        loginTitle.textContent = "Log Masuk untuk Akses Sumber";
+        loginBtn.textContent = "Log Masuk";
+        usernameInput.placeholder = "Nama Pengguna (Nama)";
+        passwordInput.placeholder = "Kata Laluan (Nombor sahaja)";
+      } else {
+        loginTitle.textContent = "Login to Access Resources";
+        loginBtn.textContent = "Log In";
+        usernameInput.placeholder = "Username (Name)";
+        passwordInput.placeholder = "Password (Numbers only)";
+      }
+    }
+  </script>
+</body>
+</html>
