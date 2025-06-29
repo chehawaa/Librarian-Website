@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Services - Librarian's Research Assistance</title>
+  <style>
+    :root {
+      --primary-color: #6a0dad;
+      --secondary-color: #fdfdff;
+      --accent-color: #b19cd9;
+      --text-color: #333;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .language-switcher {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+    }
+
+    .language-switcher select {
+      padding: 6px 12px;
+      font-weight: bold;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      background-color: white;
+      color: var(--primary-color);
+    }
+
+    nav {
+      background-color: #8a2be2;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 15px 25px;
+      display: block;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      background-color: var(--primary-color);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    .service-box {
+      background-color: white;
+      border-left: 6px solid var(--accent-color);
+      padding: 25px;
+      margin-bottom: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .service-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .service-box h3 {
+      color: var(--primary-color);
+      margin-top: 0;
+    }
+
+    .service-box p {
+      margin: 10px 0;
+      line-height: 1.6;
+    }
+
+    .service-details {
+      display: none;
+      padding: 15px;
+      background-color: #f9f9f9;
+      margin-top: 15px;
+      border-radius: 5px;
+      border-left: 3px solid var(--accent-color);
+    }
+
+    .service-box.active {
+      border-left: 6px solid var(--primary-color);
+    }
+
+    footer {
+      background-color: var(--primary-color);
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 500px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: black;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .submit-btn {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .submit-btn:hover {
+      background-color: #5a0aad;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="language-switcher">
+      <select onchange="setLanguage(this.value)">
+        <option value="en" selected>English</option>
+        <option value="ms">BM</option>
+      </select>
+    </div>
+    <h1 id="main-title">Our Services</h1>
+    <p id="main-subtitle">Discover what we offer to support your research journey</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="service.html">Services</a>
+    <a href="search.html">Search</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">Contact</a>
+    <a href="about.html">About Me</a>
+    <a href="login.html">Login</a>
+  </nav>
+
+  <div class="container" id="serviceList">
+    <!-- Services will be injected here -->
+  </div>
+
+  <!-- Registration Modal -->
+  <div id="registrationModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 id="modalTitle">Workshop Registration</h2>
+      <form id="registrationForm">
+        <div class="form-group">
+          <label for="name">Full Name:</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="institution">Institution:</label>
+          <input type="text" id="institution" name="institution" required>
+        </div>
+        <div class="form-group">
+          <label for="workshop">Workshop:</label>
+          <input type="text" id="workshop" name="workshop" readonly>
+        </div>
+        <div class="form-group">
+          <label for="date">Date:</label>
+          <input type="text" id="date" name="date" readonly>
+        </div>
+        <button type="submit" class="submit-btn">Register</button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 CHE's Research Assistance. All rights reserved.
+  </footer>
+
+  <script>
+    const services = {
+      en: {
+        title: "Our Services",
+        subtitle: "Discover what we offer to support your research journey",
+        items: [
+          {
+            title: "Research Consultation",
+            desc: "Schedule one-on-one sessions with our research librarians for personalized assistance.",
+            details: `
+              <p><strong>We provide expert guidance on:</strong></p>
+              <ul>
+                <li>Developing research questions and strategies</li>
+                <li>Identifying relevant databases and resources</li>
+                <li>Conducting systematic literature reviews</li>
+                <li>Navigating complex research methodologies</li>
+              </ul>
+              <p><strong>How to book:</strong></p>
+              <ol>
+                <li>Complete our online consultation request form</li>
+                <li>Our team will match you with a subject specialist</li>
+                <li>Meet in-person or via Zoom (45-60 minute sessions)</li>
+              </ol>
+              <p>Available Monday-Friday, 9:00 AM - 5:00 PM</p>
+            `
+          },
+          {
+            title: "Citation Guides",
+            desc: "Master academic citation styles with our comprehensive guides and tools.",
+            details: `
+              <p><strong>Available resources:</strong></p>
+              <ul>
+                <li>Detailed style manuals for APA, MLA, Chicago, IEEE, and more</li>
+                <li>Citation management software support (EndNote, Zotero, Mendeley)</li>
+                <li>Interactive citation workshops</li>
+                <li>Personalized citation formatting checks</li>
+              </ul>
+              <p><strong>Popular citation tools:</strong></p>
+              <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+                <div style="width: 48%;">
+                  <h4>Zotero</h4>
+                  <p>Free, open-source tool perfect for individual researchers</p>
+                </div>
+                <div style="width: 48%;">
+                  <h4>EndNote</h4>
+                  <p>Powerful solution for large research teams and institutions</p>
+                </div>
+              </div>
+              <p>Visit our Citation Help Desk for immediate assistance</p>
+            `
+          },
+          {
+            title: "Access to Resources",
+            desc: "Explore our vast collection of academic databases and materials.",
+            details: `
+              <p><strong>Our collections include:</strong></p>
+              <table style="width: 100%; border-collapse: collapse;">
+                <tr style="background-color: #f0e6ff;">
+                  <th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Resource Type</th>
+                  <th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Quantity</th>
+                  <th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Access</th>
+                </tr>
+                <tr>
+                  <td style="padding: 8px; border-bottom: 1px solid #ddd;">Academic Databases</td>
+                  <td style="padding: 8px; border-bottom: 1px solid #ddd;">150+</td>
+                  <td style="padding: 8px; border-bottom: 1px solid #ddd;">On-campus & remote</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px; border-bottom: 1px solid #ddd;">E-Journals</td>
+                  <td style="padding: 8px; border-bottom: 1px solid #ddd;">25,000+ titles</td>
+                  <td style="padding: 8px; border-bottom: 1px solid #ddd;">24/7 online</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px; border-bottom: 1px solid #ddd;">E-Books</td>
+                  <td style="padding: 8px; border-bottom: 1px solid #ddd;">500,000+</td>
+                  <td style="padding: 8px; border-bottom: 1px solid #ddd;">Concurrent users</td>
+                </tr>
+              </table>
+              <p style="margin-top: 15px;"><strong>Special collections:</strong> Rare books, manuscripts, institutional archives, and multimedia resources</p>
+            `
+          },
+          {
+            title: "Document Delivery",
+            desc: "Obtain digital copies of materials not available in our collections.",
+            details: `
+              <p><strong>Document Delivery Services include:</strong></p>
+              <ul>
+                <li>Article/chapter scans from our print collections</li>
+                <li>Interlibrary loans from partner institutions</li>
+                <li>Thesis and dissertation access</li>
+                <li>Patented materials and standards</li>
+              </ul>
+              <p><strong>Service details:</strong></p>
+              <div style="background-color: #f0f5ff; padding: 15px; border-radius: 5px;">
+                <p><strong>Turnaround time:</strong> 2-3 business days for local items, 5-10 days for interlibrary loans</p>
+                <p><strong>Cost:</strong> Free for current students/staff, small fee for alumni and community users</p>
+                <p><strong>Delivery:</strong> Secure electronic delivery to your institutional email</p>
+              </div>
+              <p style="margin-top: 15px;"><em>Note: Copyright restrictions apply to all document delivery services</em></p>
+            `
+          },
+          {
+            title: "Workshops and Training",
+            desc: "Enhance your research skills through our instructional programs.",
+            details: `
+              <p><strong>Upcoming Workshop Series:</strong></p>
+              <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px;">
+                <div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; border-left: 3px solid var(--primary-color);">
+                  <h4>Research Fundamentals</h4>
+                  <p> Every Tuesday, 2-3 PM</p>
+                  <p> Library Instruction Room A</p>
+                  <button class="register-btn" data-workshop="Research Fundamentals" data-date="Every Tuesday, 2-3 PM" style="background-color: var(--primary-color); color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">Register</button>
+                </div>
+                <div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; border-left: 3px solid var(--primary-color);">
+                  <h4>Advanced Database Searching</h4>
+                  <p> First Wednesday of month, 1-2:30 PM</p>
+                  <p> Online via Zoom</p>
+                  <button class="register-btn" data-workshop="Advanced Database Searching" data-date="First Wednesday of month, 1-2:30 PM" style="background-color: var(--primary-color); color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">Register</button>
+                </div>
+                <div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; border-left: 3px solid var(--primary-color);">
+                  <h4>Thesis Writing Bootcamp</h4>
+                  <p> Monthly intensive (3 days)</p>
+                  <p> Research Commons</p>
+                  <button class="register-btn" data-workshop="Thesis Writing Bootcamp" data-date="Monthly intensive (3 days)" style="background-color: var(--primary-color); color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">Register</button>
+                </div>
+              </div>
+              <p style="margin-top: 15px;"><strong>Custom sessions available:</strong> We can design specialized workshops for classes, research groups, or departments upon request.</p>
+            `
+          }
+        ]
+      },
+      ms: {
+        title: "Perkhidmatan Kami",
+        subtitle: "Terokai perkhidmatan yang kami tawarkan untuk menyokong perjalanan penyelidikan anda",
+        items: [
+          {
+            title: "Konsultasi Penyelidikan",
+            desc: "Tempah sesi satu-satu dengan pustakawan untuk bantuan mengenai topik atau strategi penyelidikan anda.",
+            details: "<p><strong>Perkhidmatan yang tersedia:</strong></p><ul><li>Penajaman topik penyelidikan</li><li>Pembangunan strategi carian</li><li>Bantuan kajian literatur</li><li>Bantuan untuk kajian sistematik</li></ul><p>Tempahan tersedia Isnin-Jumaat, 9am-5pm</p>"
+          },
+          {
+            title: "Panduan Petikan",
+            desc: "Dapatkan bantuan dalam memformat petikan dan menggunakan gaya seperti APA, MLA, atau Chicago.",
+            details: "<p><strong>Kami menyediakan:</strong></p><ul><li>Panduan gaya untuk APA, MLA, Chicago dan lain-lain</li><li>Bantuan dengan alat pengurusan rujukan (Zotero, Mendeley, EndNote)</li><li>Perkhidmatan semakan petikan</li><li>Bengkel tentang petikan yang betul</li></ul>"
+          },
+          {
+            title: "Akses ke Sumber",
+            desc: "Terokai pangkalan data, e-buku, jurnal dan bahan lain yang tersedia melalui perpustakaan.",
+            details: "<p><strong>Sumber yang tersedia:</strong></p><ul><li>Lebih 50 pangkalan data akademik</li><li>100,000+ e-buku</li><li>Akses kepada 15,000+ jurnal</li><li>Koleksi khas dan arkib</li><li>Perkhidmatan pinjaman antara perpustakaan</li></ul>"
+          },
+          {
+            title: "Penghantaran Dokumen",
+            desc: "Mohon salinan imbasan artikel atau bab buku yang tidak tersedia dalam talian.",
+            details: "<p><strong>Cara ia berfungsi:</strong></p><ol><li>Hantar permintaan melalui borang dalam talian kami</li><li>Kami akan cari bahan dalam koleksi fizikal kami</li><li>Salinan imbasan dihantar ke emel anda dalam 3-5 hari bekerja</li><li>Had 5 permintaan seminggu setiap pengguna</li></ol>"
+          },
+          {
+            title: "Bengkel dan Latihan",
+            desc: "Sertai sesi untuk meningkatkan kemahiran penyelidikan, carian pangkalan data, dan rujukan.",
+            details: "<p><strong>Bengkel akan datang:</strong></p><ul><li>Kemahiran Penyelidikan Asas - Setiap Isnin</li><li>Carian Pangkalan Data Lanjutan - Rabu pertama setiap bulan</li><li>Pengurusan Rujukan dengan Zotero - Setiap Khamis</li><li>Bengkel Penulisan Tesis - Bulanan</li></ul><p>Semua bengkel percuma tetapi memerlukan pendaftaran</p>"
+          }
+        ]
+      }
+    };
+
+    // Get the modal
+    const modal = document.getElementById("registrationModal");
+    const modalTitle = document.getElementById("modalTitle");
+    const workshopInput = document.getElementById("workshop");
+    const dateInput = document.getElementById("date");
+    const registrationForm = document.getElementById("registrationForm");
+
+    // When the user clicks the button, open the modal 
+    function setupRegisterButtons() {
+      const registerButtons = document.querySelectorAll('.register-btn');
+      registerButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.stopPropagation(); // Prevent the service box from toggling
+          const workshop = this.getAttribute('data-workshop');
+          const date = this.getAttribute('data-date');
+          
+          modalTitle.textContent = `Register for: ${workshop}`;
+          workshopInput.value = workshop;
+          dateInput.value = date;
+          
+          modal.style.display = "block";
+        });
+      });
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    document.querySelector('.close').addEventListener('click', function() {
+      modal.style.display = "none";
+    });
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.addEventListener('click', function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    });
+
+    // Handle form submission
+    registrationForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Get form values
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const institution = document.getElementById('institution').value;
+      const workshop = workshopInput.value;
+      const date = dateInput.value;
+      
+      // Here you would typically send this data to a server
+      // For now, we'll just show an alert and reset the form
+      alert(`Thank you, ${name}! You have successfully registered for "${workshop}" on ${date}. A confirmation has been sent to ${email}.`);
+      
+      // Reset form
+      registrationForm.reset();
+      modal.style.display = "none";
+    });
+
+    function setLanguage(lang) {
+      const title = document.getElementById("main-title");
+      const subtitle = document.getElementById("main-subtitle");
+      const serviceList = document.getElementById("serviceList");
+
+      title.textContent = services[lang].title;
+      subtitle.textContent = services[lang].subtitle;
+
+      serviceList.innerHTML = "";
+      services[lang].items.forEach((service, index) => {
+        const box = document.createElement("div");
+        box.className = "service-box";
+        box.innerHTML = `
+          <h3>${service.title}</h3>
+          <p>${service.desc}</p>
+          <div class="service-details" id="details-${index}">${service.details}</div>
+        `;
+        
+        box.addEventListener("click", function() {
+          this.classList.toggle("active");
+          const details = this.querySelector(".service-details");
+          if (details.style.display === "block") {
+            details.style.display = "none";
+          } else {
+            details.style.display = "block";
+          }
+        });
+        
+        serviceList.appendChild(box);
+      });
+
+      // Set up register buttons after content is loaded
+      setTimeout(setupRegisterButtons, 100);
+    }
+
+    window.onload = () => setLanguage("en");
+  </script>
+</body>
+</html>
