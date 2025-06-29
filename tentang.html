@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Librarian's Research Assistance</title>
+  <style>
+    :root {
+      --primary-color: #6a0dad; /* Purple */
+      --secondary-color: #fdfdff; /* Light white */
+      --accent-color: #b19cd9; /* Light purple */
+      --text-color: #333;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    nav {
+      background-color: #8a2be2;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 15px 25px;
+      display: block;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      background-color: var(--primary-color);
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    .section {
+      background-color: white;
+      border-left: 6px solid var(--accent-color);
+      margin-bottom: 25px;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    h2 {
+      color: var(--primary-color);
+    }
+
+    input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #580da6;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li {
+      margin-bottom: 10px;
+    }
+
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      background-color: var(--primary-color);
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Librarian's Research Assistance</h1>
+    <p>Your Gateway to Research Support and Library Resources</p>
+  </header>
+
+  <nav>
+    <a href="#search">Search</a>
+    <a href="#ask">Ask a Librarian</a>
+    <a href="#guides">Research Guides</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+    <a href="#about">About Me</a>
+  </nav>
+
+  <div class="container">
+    
+    <div class="section" id="search">
+      <h2>Search Resources</h2>
+      <input type="text" placeholder="Search for topics, guides, papers..." />
+      <br />
+      <button>Search</button>
+    </div>
+
+    <div class="section" id="ask">
+      <h2>Ask a Librarian</h2>
+      <p>Need help with your research? Submit your question and get expert support from our librarian team.</p>
+      <button>Request Assistance</button>
+    </div>
+
+    <div class="section" id="guides">
+      <h2>Research Guides</h2>
+      <ul>
+        <li><a href="#">Starting a Research Project</a></li>
+        <li><a href="#">Using Digital Library Resources</a></li>
+        <li><a href="#">Citing Sources Properly</a></li>
+      </ul>
+    </div>
+
+    <div class="section" id="faq">
+      <h2>Frequently Asked Questions</h2>
+      <ul>
+        <li><strong>Q:</strong> How do I request research help?<br><strong>A:</strong> Use the "Ask a Librarian" button to submit your query.</li>
+        <li><strong>Q:</strong> Can I access past research papers?<br><strong>A:</strong> Yes, through the search feature or archives section.</li>
+      </ul>
+    </div>
+
+    <div class="section" id="contact">
+      <h2>Contact Us</h2>
+      <p>Email: librarian@university.edu</p>
+      <p>Phone: +62 812-3456-7890</p>
+    </div>
+
+    <div class="section" id="about">
+      <h2>About Me</h2>
+      <p>Hello! I'm <strong>Mrs. Aulia Rahmawati</strong>, the university librarian with over 10 years of experience in supporting students and faculty with academic research, referencing, and information literacy.</p>
+      <p>I'm passionate about helping learners find the right resources, navigate digital databases, and build strong research skills. My goal is to make library services accessible, friendly, and empowering for everyone.</p>
+      <p>Whether you're writing your first research paper or completing your thesis, I'm here to guide you every step of the way. Feel free to reach out—I'm always happy to help!</p>
+    </div>
+
+  </div>
+
+  <footer>
+    &copy; 2025 Librarian's Research Assistance. All rights reserved.
+  </footer>
+
+</body>
+</html>
